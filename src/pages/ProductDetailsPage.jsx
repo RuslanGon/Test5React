@@ -4,6 +4,7 @@ import { reguestProductDetailsById } from "../serveses/api"
 import CommentPage from "./CommentPage"
 import ReviewsPage from "./ReviewsPage"
 import Loader from "../component/Loader/Loader"
+import ErrorMessage from "../component/ErrorMessage/ErrorMessage"
 
 
 // import CommentPage from "./CommentPage"
@@ -15,6 +16,7 @@ import Loader from "../component/Loader/Loader"
 
 const ProductDetailsPage = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const location = useLocation()
   const backLinkRef = useRef(location.state ?? '/')
@@ -30,7 +32,7 @@ const ProductDetailsPage = () => {
         const data = await reguestProductDetailsById(productId);
         setProductDetails(data);
       } catch (error) {
-        console.log(error);
+        setIsError(true)
       }finally{
         setIsLoading(false);
       }
@@ -42,6 +44,7 @@ const ProductDetailsPage = () => {
     <div>
       <h1>Product details {productId}</h1>
       {isLoading && <Loader />}
+      {isError && <ErrorMessage />}
       <Link to={backLinkRef.current}>←Go back</Link>
       {productDetails !== null && (
         <div>
