@@ -19,7 +19,7 @@ const ProductDetailsPage = () => {
   const [isError, setIsError] = useState(false);
 
   const location = useLocation()
-  const backLinkRef = useRef(location.state ?? '/')
+  const backLinkRef = useRef(location.state ?? '/products')
 
   const {productId} = useParams()
 

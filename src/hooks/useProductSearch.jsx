@@ -12,6 +12,7 @@ export const useProductSearch = ({isSearchPage = false}) => {
     const [searchParams, setSearchParams] = useSearchParams()
     const query = searchParams.get('query')
   
+    
     useEffect(() => {
       if(isSearchPage) return
       async function fetchProducts() {
