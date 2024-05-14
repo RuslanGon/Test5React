@@ -20,7 +20,7 @@ const location = useLocation()
                   <p>description: {product.description}</p>
                   <h4>price: {product.price}</h4>
                   <p>rating: {product.rating}</p>
-                  <Link className={css.limk} to={`/products/${product.id}`}>See the details</Link>
+                  <Link state={location} className={css.limk} to={`/products/${product.id}`}>See the details</Link>
                 </li>
                 
               );
