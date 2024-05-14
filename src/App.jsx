@@ -44,7 +44,7 @@ const getNavLinkClass = ({isActive}) => clsx(css.navlink, {
           <Route path="/" element={<HomePage />} />
           <Route path="/mailbox" element={<MailBoxPage />}/>
           <Route path="/products" element={<ProductsPage />} />
-          <Route path="/products/:productId" element={<ProductDetailsPage />} />
+          <Route path="/products/:productId/*" element={<ProductDetailsPage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
