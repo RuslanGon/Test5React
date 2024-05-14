@@ -1,17 +1,13 @@
-import { useEffect, useRef, useState } from "react"
+import { Suspense, lazy, useEffect, useRef, useState } from "react"
 import { Link, Route, Routes, useLocation, useParams } from "react-router-dom"
 import { reguestProductDetailsById } from "../serveses/api"
-import CommentPage from "./CommentPage"
-import ReviewsPage from "./ReviewsPage"
+
 import Loader from "../component/Loader/Loader"
 import ErrorMessage from "../component/ErrorMessage/ErrorMessage"
 
 
-// import CommentPage from "./CommentPage"
-// import ReviesPage from "./ReviesPage"
-
-// const CommentPage = lazy(() => import('./CommentPage'))
-// const ReviesPage = lazy(() => import('./ReviesPage'))
+const CommentPage = lazy(() => import('./CommentPage'))
+const ReviewsPage = lazy(() => import('./ReviewsPage'))
 
 
 const ProductDetailsPage = () => {
@@ -54,12 +50,14 @@ const ProductDetailsPage = () => {
           <p>Price: {productDetails.price}</p>
         </div>
       )}
-      <Link to='comments'>Comments</Link>
-      <Link to='reviews'>Reviews</Link>
-      <Routes>
-      <Route path="comments" element={<CommentPage />} />
-      <Route path="reviews" element={<ReviewsPage />} />
-      </Routes>
+      <Link to="comments">Comments</Link>
+      <Link to="reviews">Reviews</Link>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="comments" element={<CommentPage />} />
+          <Route path="reviews" element={<ReviewsPage />} />
+        </Routes>
+      </Suspense>
     </div>
   );
 }
