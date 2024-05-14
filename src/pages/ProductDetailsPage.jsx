@@ -3,6 +3,7 @@ import { Link, Route, Routes, useLocation, useParams } from "react-router-dom"
 import { reguestProductDetailsById } from "../serveses/api"
 import CommentPage from "./CommentPage"
 import ReviewsPage from "./ReviewsPage"
+import Loader from "../component/Loader/Loader"
 
 
 // import CommentPage from "./CommentPage"
@@ -13,6 +14,7 @@ import ReviewsPage from "./ReviewsPage"
 
 
 const ProductDetailsPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
 
   const location = useLocation()
   const backLinkRef = useRef(location.state ?? '/')
@@ -24,10 +26,13 @@ const ProductDetailsPage = () => {
   useEffect(() => {
     async function fetchProductDetails() {
       try {
+        setIsLoading(true);
         const data = await reguestProductDetailsById(productId);
         setProductDetails(data);
       } catch (error) {
         console.log(error);
+      }finally{
+        setIsLoading(false);
       }
     }
     fetchProductDetails();
@@ -36,6 +41,7 @@ const ProductDetailsPage = () => {
   return (
     <div>
       <h1>Product details {productId}</h1>
+      {isLoading && <Loader />}
       <Link to={backLinkRef.current}>←Go back</Link>
       {productDetails !== null && (
         <div>
